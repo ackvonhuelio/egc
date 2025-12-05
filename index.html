@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eaglercraft Launcher</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            color: white;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        #gm {
+            width: 100vw;
+            height: 100vh;
+        }
+        #fsBtn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 999999;
+            padding: 10px 16px;
+            background: #222;
+            border: 1px solid white;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        /* 
+            === CONFIGURATION ===
+
+            Put your downloaded Eaglercraft client somewhere like:
+
+                /client_188/
+                /client_1122/
+                /client_152/
+
+            Then:
+
+            (1) Set CLIENT_ENTRY to the main HTML file.
+            (2) Set CLIENT_FOLDER to the folder holding its assets.
+        */
+
+        const CLIENT_ENTRY  = "/client_188/index.html";  // change this
+        const CLIENT_FOLDER = "/client_188/";            // change this
+    </script>
+</head>
+
+<body>
+    <button id="fsBtn" onclick="launchFS()">Fullscreen</button>
+    <iframe id="gm" src=""></iframe>
+
+    <script>
+        // Load the client normally inside the iframe
+        document.getElementById("gm").src = CLIENT_ENTRY;
+
+        // Fullscreen launcher (opens in new tab)
+        function launchFS() {
+            const win = window.open("", "_blank");
+
+            win.document.write(`
+                <html>
+                <head>
+                    <style>
+                        html, body {
+                            margin: 0;
+                            width: 100%;
+                            height: 100%;
+                            overflow: hidden;
+                            background: black;
+                        }
+                        #gm {
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <iframe id="gm" src="${CLIENT_ENTRY}"></iframe>
+                </body>
+                </html>
+            `);
+
+            win.document.close();
+            win.focus();
+        }
+    </script>
+</body>
+</html>
