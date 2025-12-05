@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Eaglercraft</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/eag-web-sp@1.0.4/classes1_mod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/eag-web-sp@1.0.4/assets_uri.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script><script type>var r=600,s=document.documentElement.clientWidth;window.parent.html2canvas=t=>{try{html2canvas(document.body,{width:s,height:s,useCORS:!0,onclone:t=>t.getAnimations().forEach((t=>{try{t.finish()}catch{}}))}).then((t=>{var e=document.createElement("canvas");e.width=r,e.height=r,e.getContext("2d").drawImage(t,0,0,t.width,t.height,0,0,r,r),window.top.postMessage(e.toDataURL(),"*")})).catch((t=>{alert("Thumbnail Script Error: "+t)}))}catch{window.top.postMessage(document.createElement("canvas").toDataURL(),"*")}};</script>
+    <style>
+        body {
+            margin: 0;
+            width: 100vh;
+            height: 100vh;
+            background: #000;
+            color: white;
+            font-family: sans-serif;
+        }
+        #fsBtn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: 1px solid white;
+            cursor: pointer;
+            z-index: 999999;
+        }
+        #gm {
+            height: 100vh;
+            width: 100vh;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function b64ToArr(b64) {
+            eval("function KAInfiniteLoopProtect(){}");
+            var bs = window.atob(b64);
+            var ln = bs.length;
+            var ar = new Uint8Array(ln);
+            for (var i = 0; i < ln; i++) {
+                ar[i] = bs.charCodeAt(i);
+            }
+            return ar;
+        }
+
+        window.assetsData = b64ToArr(window.assetsUri.slice(28));
+
+        window.addEventListener("load", function () {
+            window.minecraftOpts = ["gm", ""];
+            main();
+        });
+
+        function goFs() {
+            var b = document.getElementById("fsBtn");
+            if (b) b.style.display = "none";
+
+            var w = window.open("", "_blank", "width=" + screen.width + ",height=" + screen.height);
+            var d = w.document;
+
+            var st = d.createElement("style");
+            st.type = "text/css";
+            st.appendChild(d.createTextNode("html,body{margin:0;height:100%;width:100%;overflow:hidden;background:#000;}#gm{position:fixed;top:0;left:0;width:100%;height:100%;}"));
+            d.head.appendChild(st);
+
+            var dv = d.createElement("div");
+            dv.id = "gm";
+            d.body.appendChild(dv);
+
+            w.assetsData = window.assetsData;
+
+            var s1 = d.createElement("script");
+            s1.src = "https://cdn.jsdelivr.net/npm/eag-web-sp@1.0.4/classes1_mod.js";
+
+            var s2 = d.createElement("script");
+            s2.src = "https://cdn.jsdelivr.net/npm/eag-web-sp@1.0.4/assets_uri.js";
+
+            s1.onload = function () {
+                s2.onload = function () {
+                    w.minecraftOpts = ["gm", ""];
+                    w.main();
+                    w.focus();
+                };
+                d.body.appendChild(s2);
+            };
+
+            d.body.appendChild(s1);
+        }
+    </script>
+</head>
+<body>
+    <button id="fsBtn" onclick="goFs()">Fullscreen</button>
+    <div id="gm"></div>
+</body>
+</html>
